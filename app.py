@@ -1,0 +1,70 @@
+from storage import Storage
+from mock_data import STREETS, WARDS, PROVINCE
+from sentence_processor import SentenceProcessor
+from variant_generator import VariantGenerator
+
+street_dict = Storage()
+ward_dict = Storage()
+province_dict = Storage()
+
+sentence_processor = SentenceProcessor()
+variant_generator = VariantGenerator()
+
+if __name__ == '__main__':
+    # Init data in Trie
+    for street in STREETS:
+        variants = variant_generator.generateVariants(street, "STREET")
+        for v in variants:
+            word = sentence_processor.normalize(v[::-1])
+            street_dict.add(word, original_word=street)
+
+    for ward in WARDS:
+        variants = variant_generator.generateVariants(ward, "WARD")
+        for v in variants:
+            word = sentence_processor.normalize(v[::-1])
+            ward_dict.add(word, original_word=ward)
+
+    for province in PROVINCE:
+        province_normalized = sentence_processor.normalize(province)
+        variants = variant_generator.generateVariants(province_normalized, "PROVINCE")
+        for v in variants:
+            word = sentence_processor.normalize(v[::-1])
+            province_dict.add(word, original_word=province)
+
+    address = "268 duong Lý Thường Kiệt quận 10 TP. Hồ Chí Minh"
+    normalized_address = sentence_processor.normalize(address[::-1])
+    possible_provinces = sentence_processor.possibleMatches(normalized_address, province_dict) or [None]
+    combinations = []
+
+    for province in possible_provinces:
+        address_without_province = normalized_address
+        if province is not None:   
+            address_without_province = normalized_address.replace(
+                province["word"], "", 1
+            )
+        print(f"Address without province: {address_without_province}")
+        possible_wards = sentence_processor.possibleMatches(
+            address_without_province, ward_dict
+        ) or [None]
+
+        for ward in possible_wards:
+            address_without_ward = address_without_province
+           
+            print(f"Address without ward: {address_without_ward}")
+            if ward is not None:
+                address_without_ward = address_without_province.replace(
+                    ward["word"], "", 1
+                )
+
+            possible_streets = sentence_processor.possibleMatches(
+                address_without_ward, street_dict
+            ) or [None]
+
+            for street in possible_streets:
+                combinations.append({
+                    "province": province["original_word"] if province is not None else None,
+                    "ward": ward["original_word"] if ward is not None else None,
+                    "street": street["original_word"] if street is not None else None
+                })
+
+    print(combinations)
