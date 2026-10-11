@@ -31,6 +31,19 @@ class SentenceProcessor:
 
         return list(matches)
 
+    def getMostReasonableCombination(self, matches: list[dict], s: str):
+        highest_match = matches[0] if matches else {"province": None, "ward": None, "street": None}
+        highest_match_score = 0
+        for match in matches:
+            score = 0
+            score = score + 1 if match["province"] is not None else score
+            score = score + 1 if match["ward"] is not None else score
+            score = score + 1 if match["street"] is not None else score
+            if score > highest_match_score:
+                highest_match_score = score
+                highest_match = match
+        return highest_match
+
     def _dfs(self, trace_map, key, s, curr_path: list, all_paths: list[list]):
         if key == len(s):
             all_paths.append(curr_path.copy())

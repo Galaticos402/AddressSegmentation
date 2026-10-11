@@ -31,7 +31,7 @@ if __name__ == '__main__':
             word = sentence_processor.normalize(v[::-1])
             province_dict.add(word, original_word=province)
 
-    address = "268 duong Lý Thường Kiệt quận 10 TP. Hồ Chí Minh"
+    address = "268 duong Lý Thường Kiệt quận 10 thanh pho Ho Chi Minh"
     normalized_address = sentence_processor.normalize(address[::-1])
     possible_provinces = sentence_processor.possibleMatches(normalized_address, province_dict) or [None]
     combinations = []
@@ -67,4 +67,6 @@ if __name__ == '__main__':
                     "street": street["original_word"] if street is not None else None
                 })
 
-    print(combinations)
+    most_reasonable_combination = sentence_processor.getMostReasonableCombination(combinations, normalized_address)
+    print("Most Reasonable Combination:")
+    print(most_reasonable_combination)
