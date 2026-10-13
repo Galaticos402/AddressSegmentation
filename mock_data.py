@@ -1,5 +1,5 @@
 STREETS = [
-    "Lý Thường Kiệt",
+    "LTK",
     "Sư Vạn Hạnh",
     "3/2"
 ]
@@ -9,11 +9,13 @@ WARDS = [
     "Hoà Hưng",
     "Con cò bé bé",
     "Quận 1",
-    "Quận 10"
+    "Quận 10",
+    "Cần Giuộc"
 ]
 
 PROVINCE = [
-    "TP. Hồ Chí Minh",
+    "TP.Ho Chi Minh",
     "Hà Nội",
-    "Vũng Tàu",
+    "Bà Rịa Vũng Tàu",
+    "Long An"
 ]

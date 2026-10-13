@@ -17,18 +17,15 @@ class SentenceProcessor:
         matches = []
 
         size = len(s)
-        dp = [False] * (size + 1)
-        dp[0] = True
 
         for i in range(size + 1):
             for j in range(i):
-                if dp[j] and trie.contains(s[j:i]) is not None:
+                if trie.contains(s[j:i]) is not None:
                     matches.append({
                         "word": s[j:i],
                         "original_word": trie.contains(s[j:i]),
                     })
-                    dp[i] = True
-
+        print(f"Possible matches for {s}: {matches}")
         return list(matches)
 
     def getMostReasonableCombination(self, matches: list[dict], s: str):
