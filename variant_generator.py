@@ -46,7 +46,7 @@ class VariantGenerator:
                     variants.add(self.COMMON_ABBREVIATION_DICT.get(actual_street))
 
                 if self.REVERSE_ABBREVIATION_DICT.get(actual_street) is not None:
-                    print(f"Adding reverse abbreviation for street '{actual_street}': {self.REVERSE_ABBREVIATION_DICT.get(actual_street)}")
+                    # print(f"Adding reverse abbreviation for street '{actual_street}': {self.REVERSE_ABBREVIATION_DICT.get(actual_street)}")
                     variants.add(self.REVERSE_ABBREVIATION_DICT.get(actual_street))
 
         for postfix in self.STREET_POSTFIXES:
@@ -57,7 +57,7 @@ class VariantGenerator:
                     variants.add(self.COMMON_ABBREVIATION_DICT.get(actual_street))
 
                 if self.REVERSE_ABBREVIATION_DICT.get(actual_street) is not None:
-                    print(f"Adding reverse abbreviation for street '{actual_street}': {self.REVERSE_ABBREVIATION_DICT.get(actual_street)}")
+                    # print(f"Adding reverse abbreviation for street '{actual_street}': {self.REVERSE_ABBREVIATION_DICT.get(actual_street)}")
                     variants.add(self.REVERSE_ABBREVIATION_DICT.get(actual_street))  
 
         variants.update(
@@ -70,7 +70,7 @@ class VariantGenerator:
                 f"{variant}st",
             )
         )
-        print(f"Generated variants for street '{street}': {variants}")
+        # print(f"Generated variants for street '{street}': {variants}")
         return variants
 
 
@@ -111,7 +111,7 @@ class VariantGenerator:
                 f"{variant}w",
             )
         )
-        print(f"Generated variants for ward '{ward}': {variants}")
+        # print(f"Generated variants for ward '{ward}': {variants}")
         return variants
 
     def _generateProvinceVariants(self, province: str):
@@ -151,5 +151,5 @@ class VariantGenerator:
                 f"{variant}c",
             )
         )
-        print(f"Generated variants for province '{province}': {variants}")
+        # print(f"Generated variants for province '{province}': {variants}")
         return variants
